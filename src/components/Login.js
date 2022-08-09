@@ -34,9 +34,10 @@ const Login = () => {
 
       if (req.status !== 200) {
         console.log("error incorrect login");
+        return;
       }
-
       const reqJson = await req.json();
+      console.log(reqJson);
 
       dispatch({ type: "login", payload: reqJson });
     } catch (err) {
