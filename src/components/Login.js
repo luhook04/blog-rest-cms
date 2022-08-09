@@ -1,6 +1,8 @@
 import React, { useContext, useState } from "react";
+import { AuthContext } from "../App";
 
 const Login = () => {
+  const { dispatch } = useContext(AuthContext);
   const [user, setUser] = useState({
     username: "",
     password: "",
@@ -13,17 +15,46 @@ const Login = () => {
     });
   };
 
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const formData = JSON.stringify(user);
+
+      const req = await fetch(
+        "https://dry-hamlet-86450.herokuapp.com/api/login",
+        {
+          method: "POST",
+          body: formData,
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (req.status !== 200) {
+        console.log("error incorrect login");
+      }
+
+      const reqJson = await req.json();
+
+      dispatch({ type: "login", payload: reqJson });
+    } catch (err) {
+      return err;
+    }
+  };
+
   return (
     <div>
       <h2>Login</h2>
-      <form>
+      <form onSubmit={handleLogin}>
         <label htmlFor="username">Username</label>
         <input
           type="text"
           id="username"
           name="username"
           value={user.username}
-          onChange={handleChange}
+          onChange={(e) => handleChange(e)}
         />
         <label htmlFor="password">Password</label>
         <input
@@ -31,9 +62,9 @@ const Login = () => {
           id="password"
           name="password"
           value={user.password}
-          onChange={handleChange}
+          onChange={(e) => handleChange(e)}
         />
-        <button>Login</button>
+        <button onClick={handleLogin}>Login</button>
       </form>
     </div>
   );
