@@ -6,6 +6,13 @@ const Login = () => {
     password: "",
   });
 
+  const handleChange = (e) => {
+    setUser({
+      ...user,
+      [e.target.name]: e.target.value,
+    });
+  };
+
   return (
     <div>
       <h2>Login</h2>
@@ -16,6 +23,7 @@ const Login = () => {
           id="username"
           name="username"
           value={user.username}
+          onChange={handleChange}
         />
         <label htmlFor="password">Password</label>
         <input
@@ -23,6 +31,7 @@ const Login = () => {
           id="password"
           name="password"
           value={user.password}
+          onChange={handleChange}
         />
         <button>Login</button>
       </form>
