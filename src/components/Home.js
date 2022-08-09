@@ -1,7 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
+import { Routes, Route, BrowserRouter } from "react-router-dom";
+import { AuthContext } from "../App";
 
 const Home = () => {
-  return <h2>Home Component</h2>;
+  const { state } = useContext(AuthContext);
+
+  return (
+    <BrowserRouter basename="/">
+      <Routes></Routes>
+    </BrowserRouter>
+  );
 };
 
 export default Home;

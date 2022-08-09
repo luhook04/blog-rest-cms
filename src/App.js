@@ -22,7 +22,9 @@ const App = () => {
 
   return (
     <AuthContext.Provider value={{ state, dispatch }}>
-      {state.isAuthenticated ? <Home /> : <Login />}
+      <div className="app-container">
+        {state.isAuthenticated ? <Home /> : <Login />}
+      </div>
     </AuthContext.Provider>
   );
 };
