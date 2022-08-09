@@ -5,12 +5,14 @@ import EditPost from "./EditPost";
 import NewPost from "./NewPost";
 import PostList from "./PostList";
 import Login from "./Login";
+import Nav from "./Nav";
 
 const Home = () => {
   const { state } = useContext(AuthContext);
 
   return (
     <BrowserRouter basename="/">
+      {state.isAuthenticated && <Nav />}
       <Routes>
         <Route
           exact
