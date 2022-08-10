@@ -11,7 +11,7 @@ const PostPreview = ({ post, deletePost }) => {
       <p className="post-date-preview">{post.date}</p>
       <div className="view-post-container">
         <Link to={`/posts/${post._id}`}>
-          <button type="button">View Post</button>
+          <button type="button">Edit Post</button>
         </Link>
         <Link to={`/`}>
           <button type="button" onClick={() => deletePost(post._id)}>
