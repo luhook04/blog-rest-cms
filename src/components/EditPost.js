@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 import { AuthContext } from "../App";
+import DeleteComment from "./DeleteComment";
 
 const EditPost = () => {
   const [post, setPost] = useState({ title: "", text: "" });
@@ -72,7 +73,6 @@ const EditPost = () => {
       if (req.status === 200) {
         refreshPage();
       }
-      console.log("success");
     } catch (err) {
       return err;
     }
@@ -103,14 +103,14 @@ const EditPost = () => {
         </div>
         <button type="submit">Submit Edit</button>
       </form>
-      {comments ? (
+      {comments.length !== 0 ? (
         <div className="comments-container">
           {comments.map((comment) => {
-            return <Comment comment={comment} />;
+            return <DeleteComment key={comment._id} comment={comment} />;
           })}
         </div>
       ) : (
-        <h2>No Comments</h2>
+        <h3>No Comments</h3>
       )}
     </div>
   );
