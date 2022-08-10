@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
+import { AuthContext } from "../App";
 
 const EditPost = () => {
   const [post, setPost] = useState({ title: "", text: "" });
   const [comments, setComments] = useState([]);
+  const { state } = useContext(AuthContext);
 
   const { postId } = useParams();
 
@@ -46,9 +48,39 @@ const EditPost = () => {
     });
   };
 
+  const refreshPage = () => {
+    window.location.reload();
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const req = await fetch(
+        `https://dry-hamlet-86450.herokuapp.com/api/posts/${postId}`,
+        {
+          method: "PUT",
+          headers: {
+            Authorization: `Bearer ${state.token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            title: post.title,
+            text: post.text,
+          }),
+        }
+      );
+      if (req.status === 200) {
+        refreshPage();
+      }
+      console.log("success");
+    } catch (err) {
+      return err;
+    }
+  };
+
   return (
     <div>
-      <form>
+      <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="title">Title: </label>
           <input
