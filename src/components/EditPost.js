@@ -106,14 +106,7 @@ const EditPost = () => {
       {comments ? (
         <div className="comments-container">
           {comments.map((comment) => {
-            return (
-              <div className="comment-container" key={comment._id}>
-                <p>{comment.username}</p>
-                <p>{comment.text}</p>
-                <p className="comment-date">{comment.date}</p>
-                <button type="button">Delete Comment</button>
-              </div>
-            );
+            return <Comment comment={comment} />;
           })}
         </div>
       ) : (
