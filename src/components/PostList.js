@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
+import { AuthContext } from "../App";
 
 const PostList = () => {
   const [posts, setPosts] = useState([]);
+  const { state } = useContext(AuthContext);
 
   useEffect(() => {
     const getPosts = async () => {
@@ -20,11 +22,11 @@ const PostList = () => {
   }, []);
 
   return (
-    <div>
+    <div className="post-list-container">
       {posts ? (
         <div>
           {posts.map((post) => {
-            return <p key={post._id}>{post.title}</p>;
+            return <PostPreview key={post._id} post={post} />;
           })}
         </div>
       ) : (

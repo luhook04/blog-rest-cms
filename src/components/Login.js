@@ -65,7 +65,9 @@ const Login = () => {
           value={user.password}
           onChange={(e) => handleChange(e)}
         />
-        <button onClick={handleLogin}>Login</button>
+        <button type="button" onClick={handleLogin}>
+          Login
+        </button>
       </form>
     </div>
   );
