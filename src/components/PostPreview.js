@@ -13,9 +13,6 @@ const PostPreview = ({ post }) => {
         <Link to={`/posts/${post._id}`}>
           <button type="button">Edit Post</button>
         </Link>
-        <Link to="/">
-          <button type="button">Delete Post</button>
-        </Link>
         <div className="comment-count-container">
           <CommentIcon />
           <span className="comment-count">{commentCount}</span>
