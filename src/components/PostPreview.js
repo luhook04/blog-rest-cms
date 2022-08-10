@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import CommentIcon from "@mui/icons-material/Comment";
 
-const PostPreview = ({ post }) => {
+const PostPreview = ({ post, deletePost }) => {
   const commentCount = post.comments.length;
   return (
     <div className="post-preview">
@@ -11,7 +11,12 @@ const PostPreview = ({ post }) => {
       <p className="post-date-preview">{post.date}</p>
       <div className="view-post-container">
         <Link to={`/posts/${post._id}`}>
-          <button type="button">Edit Post</button>
+          <button type="button">View Post</button>
+        </Link>
+        <Link to={`/`}>
+          <button type="button" onClick={() => deletePost(post._id)}>
+            Delete Post
+          </button>
         </Link>
         <div className="comment-count-container">
           <CommentIcon />
