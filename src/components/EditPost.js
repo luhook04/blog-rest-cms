@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { AuthContext } from "../App";
 
 const EditPost = () => {
-  const [post, setPost] = useState({ title: "", text: "" });
+  const [post, setPost] = useState({ title: "", text: "", published: false });
   const [comments, setComments] = useState([]);
   const { state } = useContext(AuthContext);
 
@@ -21,7 +21,8 @@ const EditPost = () => {
         const reqJson = await req.json();
         const title = reqJson.post.title;
         const text = reqJson.post.text;
-        setPost({ title, text });
+        const published = reqJson.post.published;
+        setPost({ title, text, published });
       } catch (err) {}
     };
     getPost();
@@ -49,6 +50,13 @@ const EditPost = () => {
     });
   };
 
+  const handlePublish = (e) => {
+    setPost({
+      ...post,
+      published: e.target.checked,
+    });
+  };
+
   const refreshPage = () => {
     window.location.reload();
   };
@@ -67,6 +75,7 @@ const EditPost = () => {
           body: JSON.stringify({
             title: post.title,
             text: post.text,
+            published: post.published,
           }),
         }
       );
@@ -126,6 +135,16 @@ const EditPost = () => {
             id="text"
             onChange={(e) => handleEdit(e)}
             value={post.text}
+          />
+        </div>
+        <div>
+          <label htmlFor="publish">Check button to publish: </label>
+          <input
+            type="checkbox"
+            id="publish"
+            name="publish"
+            checked={post.published}
+            onChange={(e) => handlePublish(e)}
           />
         </div>
         <button type="submit">Submit Edit</button>

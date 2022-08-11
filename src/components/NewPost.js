@@ -12,9 +12,38 @@ const NewPost = () => {
     });
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const req = await fetch(
+        "https://dry-hamlet-86450.herokuapp.com/api/posts/",
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${state.token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            title: newPost.title,
+            text: newPost.text,
+          }),
+        }
+      );
+      if (req.status !== 200) {
+        return;
+      }
+      setNewPost({
+        title: "",
+        text: "",
+      });
+    } catch (err) {
+      return err;
+    }
+  };
+
   return (
     <div className="new-post-container">
-      <form>
+      <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="title">Title: </label>
           <input
@@ -27,7 +56,7 @@ const NewPost = () => {
         </div>
         <div>
           <label htmlFor="text">Post: </label>
-          <input
+          <textarea
             type="text"
             id="text"
             name="text"
