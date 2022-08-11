@@ -48,7 +48,7 @@ const PostList = () => {
   return (
     <div className="post-list-container">
       {posts ? (
-        <div>
+        <div className="post-previews">
           {posts.map((post) => {
             return (
               <PostPreview key={post._id} deletePost={deletePost} post={post} />

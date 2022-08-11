@@ -44,7 +44,7 @@ const NewPost = () => {
   return (
     <div className="new-post-container">
       <form onSubmit={handleSubmit}>
-        <div>
+        <div className="form-group">
           <label htmlFor="title">Title: </label>
           <input
             type="text"
@@ -54,17 +54,20 @@ const NewPost = () => {
             value={newPost.title}
           />
         </div>
-        <div>
+        <div className="form-group">
           <label htmlFor="text">Post: </label>
           <textarea
             type="text"
+            rows="20"
             id="text"
             name="text"
             onChange={(e) => handleChange(e)}
             value={newPost.text}
           />
         </div>
-        <button type="submit">Post</button>
+        <button className="new-post-btn" type="submit">
+          Post
+        </button>
       </form>
     </div>
   );

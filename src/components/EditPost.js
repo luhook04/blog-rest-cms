@@ -115,9 +115,9 @@ const EditPost = () => {
   };
 
   return (
-    <div>
+    <div className="edit-post-container">
       <form onSubmit={handleSubmit}>
-        <div>
+        <div className="form-group">
           <label htmlFor="title">Title: </label>
           <input
             type="text"
@@ -127,17 +127,18 @@ const EditPost = () => {
             value={post.title}
           />
         </div>
-        <div>
+        <div className="form-group">
           <label htmlFor="text">Edit Text: </label>
           <textarea
             type="text"
             name="text"
+            rows="20"
             id="text"
             onChange={(e) => handleEdit(e)}
             value={post.text}
           />
         </div>
-        <div>
+        <div className="publish-div">
           <label htmlFor="publish">Check button to publish: </label>
           <input
             type="checkbox"

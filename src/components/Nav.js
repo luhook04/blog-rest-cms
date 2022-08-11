@@ -10,15 +10,15 @@ const Nav = () => {
   };
 
   return (
-    <nav>
-      <ul>
-        <li>
+    <nav className="navigation-container">
+      <ul className="nav-list">
+        <li className="nav-link">
           <Link to="/">Home</Link>
         </li>
-        <li>
+        <li className="nav-link">
           <Link to="/newpost">New Post</Link>
         </li>
-        <li>
+        <li className="nav-list-button">
           <button type="button" onClick={logOut}>
             Logout
           </button>
