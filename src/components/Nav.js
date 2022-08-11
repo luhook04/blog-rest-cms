@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 
 const Nav = () => {
   const { dispatch } = useContext(AuthContext);
+
   const logOut = () => {
     dispatch({ type: "logout" });
   };
