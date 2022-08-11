@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 import { AuthContext } from "../App";
-import DeleteComment from "./DeleteComment";
 
 const EditPost = () => {
   const [post, setPost] = useState({ title: "", text: "" });
@@ -30,7 +29,8 @@ const EditPost = () => {
     const getComments = async () => {
       try {
         const req = await fetch(
-          `https://dry-hamlet-86450.herokuapp.com/api/posts/${postId}/comments`
+          `https://dry-hamlet-86450.herokuapp.com/api/posts/${postId}/comments`,
+          { method: "GET" }
         );
         if (req.status !== 200) {
           return;
@@ -78,6 +78,33 @@ const EditPost = () => {
     }
   };
 
+  const handleDeleteComment = async (commentId) => {
+    try {
+      const newCommentList = comments.filter(
+        (comment) => comment._id !== commentId
+      );
+
+      const req = await fetch(
+        `https://dry-hamlet-86450.herokuapp.com/api/posts/${postId}/comments/${commentId}`,
+        {
+          method: "delete",
+          headers: {
+            Authorization: `Bearer ${state.token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (req.status === 200) {
+        setComments(newCommentList);
+        refreshPage();
+      } else {
+        console.log("ohno");
+      }
+    } catch (err) {
+      return err;
+    }
+  };
+
   return (
     <div>
       <form onSubmit={handleSubmit}>
@@ -106,7 +133,19 @@ const EditPost = () => {
       {comments.length !== 0 ? (
         <div className="comments-container">
           {comments.map((comment) => {
-            return <DeleteComment key={comment._id} comment={comment} />;
+            return (
+              <div className="comment-container" key={comment._id}>
+                <p>{comment.username}</p>
+                <p>{comment.text}</p>
+                <p className="comment-date">{comment.date}</p>
+                <button
+                  type="button"
+                  onClick={() => handleDeleteComment(comment._id)}
+                >
+                  Delete Comment
+                </button>
+              </div>
+            );
           })}
         </div>
       ) : (
