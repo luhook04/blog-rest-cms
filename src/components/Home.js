@@ -11,7 +11,7 @@ const Home = () => {
   const { state } = useContext(AuthContext);
 
   return (
-    <BrowserRouter basename="/">
+    <BrowserRouter basename="/blog-rest-cms">
       {state.isAuthenticated && <Nav />}
       <Routes>
         <Route
