@@ -11,12 +11,12 @@ const Home = () => {
   const { state } = useContext(AuthContext);
 
   return (
-    <BrowserRouter basename="/blog-rest-cms">
+    <BrowserRouter basename="/">
       {state.isAuthenticated && <Nav />}
       <Routes>
         <Route
           exact
-          path="/"
+          path="/blog-rest-cms"
           element={state.isAuthenticated ? <PostList /> : <Login />}
         />
         <Route

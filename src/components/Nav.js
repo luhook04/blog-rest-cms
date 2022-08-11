@@ -13,7 +13,7 @@ const Nav = () => {
     <nav className="navigation-container">
       <ul className="nav-list">
         <li className="nav-link">
-          <Link to="/">Home</Link>
+          <Link to="/blog-rest-cms">Home</Link>
         </li>
         <li className="nav-link">
           <Link to="/newpost">New Post</Link>

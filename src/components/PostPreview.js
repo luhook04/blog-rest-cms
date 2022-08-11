@@ -17,7 +17,7 @@ const PostPreview = ({ post, deletePost }) => {
         <Link to={`/posts/${post._id}`}>
           <button type="button">Edit Post</button>
         </Link>
-        <Link to={`/`}>
+        <Link to={`/blog-rest-cms`}>
           <button type="button" onClick={() => deletePost(post._id)}>
             Delete Post
           </button>
