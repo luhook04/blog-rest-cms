@@ -163,7 +163,13 @@ button:hover {
 }
 
 .edit-post-container {
-  padding-bottom: 70px;
+  background-color: rgba(0, 255, 255, 0.628);
+  padding-bottom: 100px;
+}
+
+.new-post-container {
+  background-color: rgba(0, 255, 255, 0.628);
+  padding-bottom: 200px;
 }
 
 .comment-date {
