@@ -4,6 +4,7 @@ import { AuthContext } from "../App";
 
 const EditPost = () => {
   const [post, setPost] = useState({ title: "", text: "", published: false });
+  const [message, setMessage] = useState("");
   const [comments, setComments] = useState([]);
   const { state } = useContext(AuthContext);
 
@@ -13,7 +14,8 @@ const EditPost = () => {
     const getPost = async () => {
       try {
         const req = await fetch(
-          `https://dry-hamlet-86450.herokuapp.com/api/posts/${postId}`
+          `https://dry-hamlet-86450.herokuapp.com/api/posts/${postId}`,
+          { method: "GET" }
         );
         if (req.status !== 200) {
           return;
@@ -57,10 +59,6 @@ const EditPost = () => {
     });
   };
 
-  const refreshPage = () => {
-    window.location.reload();
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -80,7 +78,10 @@ const EditPost = () => {
         }
       );
       if (req.status === 200) {
-        refreshPage();
+        setMessage("Post Updated!");
+        setTimeout(() => setMessage(""), 4000);
+      } else {
+        return;
       }
     } catch (err) {
       return err;
@@ -105,9 +106,8 @@ const EditPost = () => {
       );
       if (req.status === 200) {
         setComments(newCommentList);
-        refreshPage();
       } else {
-        console.log("ohno");
+        return;
       }
     } catch (err) {
       return err;
@@ -116,40 +116,44 @@ const EditPost = () => {
 
   return (
     <div className="edit-post-container">
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label htmlFor="title">Title: </label>
-          <input
-            type="text"
-            name="title"
-            id="title"
-            onChange={(e) => handleEdit(e)}
-            value={post.title}
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="text">Edit Text: </label>
-          <textarea
-            type="text"
-            name="text"
-            rows="20"
-            id="text"
-            onChange={(e) => handleEdit(e)}
-            value={post.text}
-          />
-        </div>
-        <div className="publish-div">
-          <label htmlFor="publish">Check button to publish: </label>
-          <input
-            type="checkbox"
-            id="publish"
-            name="publish"
-            checked={post.published}
-            onChange={(e) => handlePublish(e)}
-          />
-        </div>
-        <button type="submit">Submit Edit</button>
-      </form>
+      <div>
+        <form onSubmit={(e) => handleSubmit(e)}>
+          <div className="form-group">
+            <label htmlFor="title">Title: </label>
+            <input
+              type="text"
+              name="title"
+              id="title"
+              onChange={(e) => handleEdit(e)}
+              value={post.title}
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="text">Edit Text: </label>
+            <textarea
+              type="text"
+              name="text"
+              rows="20"
+              id="text"
+              onChange={(e) => handleEdit(e)}
+              value={post.text}
+            />
+          </div>
+          <div className="publish-div">
+            <label htmlFor="publish">Check button to publish: </label>
+            <input
+              type="checkbox"
+              id="publish"
+              name="publish"
+              checked={post.published}
+              onChange={(e) => handlePublish(e)}
+            />
+          </div>
+          <button type="submit">Submit Edit</button>
+        </form>
+        <div>{message}</div>
+      </div>
+
       {comments.length !== 0 ? (
         <div className="comments-container">
           {comments.map((comment) => {
